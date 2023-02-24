@@ -1,0 +1,59 @@
+{% load static %}
+<style>
+    #logo{
+        margin-top:0;
+        margin-bottom:4px;
+        height:35px;
+        width:35px;       
+    }
+</style>
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" >
+        <div class="container fw-bold">
+        <a id="logo" class="navbar-brand" href="#"><img src="{% static 'images/logo.jpg' %}" class="rounded-circle" id="logo"/></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'home'%}active{% endif %} "  aria-current="page" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'collections' %}active{% endif %} " href="{% url 'collections' %}">Collections</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'ticket' %}active{% endif %} " href="{% url 'ticket' %}">Tickets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'wishlist' %}active{% endif %} " href="{% url 'wishlist' %}">Wishlist</a>
+                </li>
+                <button class="btn btn-outline-warning px-0 p-0">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{request.user}}
+                    </a>
+                    <ul class="dropdown-menu bg-light">
+                    <li><a class="dropdown-item fw-bold" href="#">Action</a></li>
+                    <li><a class="dropdown-item fw-bold" href="#">Another action</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item fw-bold" href="{% url 'logout' %}">Log out</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+            
+                {% endif %}
+                </button>
+            </ul>
+        
+        
+            
+                
+            
+                
+        </div>
+        </div>
+    </nav>

@@ -1,0 +1,101 @@
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <form action={% url 'ticketorder' %} method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="fw-bold">Basic Details</h5>
+                        <hr>
+                        <div class="row checkoutform">
+                            <div class="col-md-6">
+                                <label>First Name</label>
+                                <input type="text" required value="{{request.user.first_name}}" class="form-control" name="fname" placeholder="Enter First Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Last Name</label>
+                                <input type="text" required value="{{request.user.last_name}}" class="form-control" name="lname" placeholder="Enter Last Name">
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label>Email</label>
+                                <input type="email" required value="{{request.user.email}}" class="form-control" name="email" placeholder="Enter Email">
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label>Phone</label>
+                                <input type="text" required value="{{userprofile.phone}}" class="form-control" name="phone" placeholder="Enter phone">
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <label>Address</label>
+                                <textarea type="text" class="form-control" name="address" placeholder="Enter Address">{{userprofile.address}}</textarea>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label>City</label>
+                                <input type="text" required value="{{userprofile.city}}" class="form-control" name="city" placeholder="Enter City">
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label>State</label>
+                                <input type="text" required value="{{userprofile.state}}" class="form-control" name="state" placeholder="Enter State">
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label>Country</label>
+                                <input type="text" required value="{{userprofile.country}}" class="form-control" name="country" placeholder="Enter Country">
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label>Pincode</label>
+                                <input type="text" required value="{{userprofile.pincode}}" class="form-control" name="pincode" placeholder="Enter Pincode">
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="text-center fw-bold">Ticket Order Summary</h5>
+                        <hr>
+                        {% if ticketitems %}
+                        <table class="table table-stripeds table-bordereds">
+                            <thead>
+                                <tr>
+                                    <th>Movie Name</th>
+                                    <th>Ticket Quantity</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for item in ticketitems  %}
+                                <tr>
+                                    <td>
+                                        <img src="{{item.movie.movie_image.url}}" class="me-2" height="50px" weight="50px">
+                                        {{item.movie.name}}
+                                    </td>
+                                    <td>{{item.ticket_qty}}</td>
+                                    <td>{{item.movie.selling_price |stringformat:'d'}}</td>                            
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <h6 class="fw-bold">Grand Total
+                            <span class="float-end">BDT {{total_price |stringformat:'d'}}</span>
+                        </h6>    
+                        
+                        <input type="hidden" value="" name="payment_mode">
+
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-success w-100" >Book now </button>
+                        </div>
+                        {% else %}
+                        <h4> Your ticket is empty </h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-shadow moviedata">
+                    <div class="card-body ticketload">
+                        {% if ticket %}
+                            {% for item in ticket  %}
+                            <div class="row">
+                                <div class="col-md-2 my-auto">
+                                    <img src="{{item.movie.movie_image.url}}" width="70px" height="70px" alt="image here">
+                                </div>
+
+                                <div class="col-md-3 my-auto">
+                                    <h6>{{item.movie.name}}</h6>
+                                </div>
+
+                                <div class="col-md-2 my-auto">
+                                    <h6>{{item.movie.selling_price |stringformat:'d'}}</h6>
+                                </div>
+
+                                <div class="col-md-3 my-auto">
+                                    <input type="hidden" class="mov_id" value="{{item.movie_id}}">
+                                    {% csrf_token %}
+                                    {% if item.movie.quantity >= item.ticket_qty %}
+                                    <label for="Quantity">Quantity</label>
+                                        <div class="input-group text-center mb-3" style="130px">
+                                            <button class="input-group-text changeQuantity decrement-btn" >-</button>
+                                            <input type="text" name="quantity" class="form-control qty-input text-center" value={{item.ticket_qty}}>    
+                                            <button class="input-group-text changeQuantity increment-btn" >+</button>
+                                        </div> 
+                                    {% else %}
+                                    <h6>Out of Stock</h6>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-md-2 my-auto">
+                                    <button class="btn btn-danger delete-ticket-item"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <a href="{% url 'checkout' %}" class="btn btn-outline-success float-end"> Checkout </a>
+                        {% else %}
+                        <h4>Your ticket is empty</h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

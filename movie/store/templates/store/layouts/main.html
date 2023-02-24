@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <link href={% static 'css/style.css' %} rel="stylesheet">
+    {% comment %} Bootstrap {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    {% comment %} alertify js from CSS & Default theme {% endcomment %}    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <meta name="referer" content="no-referer-when-downgrade">
+</head>
+<body>
+    {% include 'store/inc/navbar.html' %}
+    {% block content %}
+    
+    {% endblock content %}
+    
+    <a href="https://wa.me/+8801859740657?text=I'm%20interested%20in%20tochat" target="_blank" class="whatsapp-chat">
+        <img src="{% static 'images/whatsapplogo.png' %}" alt="whatsapp" width="70px"/>
+    </a>
+    
+    {% include 'store/inc/footer.html' %}
+    
+    {% comment %}jQuery{% endcomment %}
+    <script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>
+    {% comment %}js file{% endcomment %}
+    <script src="{% static 'js/custom.js' %}"></script>
+    {% comment %} Bootstrap link{% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/63f49ccd31ebfa0fe7ee758a/1gppo9112';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+    {% comment %} alertify js Javascript link{% endcomment %}
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+        alertify.set('notifier','position','bottom-right');
+        {% for msg in messages %}
+        alertify.success('{{msg}}');
+        {% endfor %}
+    </script>
+</body>
+</html>
